@@ -1,0 +1,24 @@
+﻿-------------- Trace (2023-01-19 12:20:40.2655) --------------
+                     
+                     Call Site: WebApplication1.Controllers.ValuesController.Get2
+                     Exception Type: 
+                     Exception Message: 
+                     Stack Trace: 
+                     Additional Info: Get me home
+
+-------------- Trace (2023-01-19 12:21:06.0701) --------------
+                     
+                     Call Site: WebApplication1.Controllers.ValuesController.Get2
+                     Exception Type: 
+                     Exception Message: 
+                     Stack Trace: 
+                     Additional Info: Get me home 2
+
+-------------- Fatal (2023-01-19 12:29:21.1234) --------------
+                     
+                     Call Site: WebApplication1.Controllers.ValuesController.Get2
+                     Exception Type: 
+                     Exception Message: 
+                     Stack Trace: 
+                     Additional Info: Get me home 2
+

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        let students = [{ "Id": 156, "Name": "Yosi", "NumOfPurchases": 3 }, { "Id": 171, "Name": "Hagai", "NumOfPurchases": 0 }, { "Id": 189, "Name": "Dani", "NumOfPurchases": 3 }, { "Id": 227, "Name": "Maayan", "NumOfPurchases": 2 }, { "Id": 255, "Name": "Gadi", "NumOfPurchases": 0 }, { "Id": 264, "Name": "Benny", "NumOfPurchases": 1 }, { "Id": 294, "Name": "Moshe", "NumOfPurchases": 1 }, { "Id": 302, "Name": "Roi", "NumOfPurchases": 0 }, { "Id": 306, "Name": "Shani", "NumOfPurchases": 0 },
+        { "Id": 317, "Name": "Ziv", "NumOfPurchases": 1 }, { "Id": 365, "Name": "Reut", "NumOfPurchases": 0 }, { "Id": 402, "Name": "Naor", "NumOfPurchases": 0 }, { "Id": 412, "Name": "Golan", "NumOfPurchases": 2 }, { "Id": 447, "Name": "Dani", "NumOfPurchases": 1 }, { "Id": 489, "Name": "Dana", "NumOfPurchases": 1 }, { "Id": 507, "Name": "Dikla", "NumOfPurchases": 1 }, { "Id": 508, "Name": "Sivan", "NumOfPurchases": 2 }, { "Id": 528, "Name": "Sharon", "NumOfPurchases": 0 },
+        { "Id": 548, "Name": "Shira", "NumOfPurchases": 3 }, { "Id": 551, "Name": "Avishai", "NumOfPurchases": 1 }, { "Id": 593, "Name": "Adi", "NumOfPurchases": 0 }, { "Id": 620, "Name": "Yaron", "NumOfPurchases": 1 }, { "Id": 635, "Name": "Rachel", "NumOfPurchases": 1 }, { "Id": 702, "Name": "Yoav", "NumOfPurchases": 0 }, { "Id": 748, "Name": "Rami", "NumOfPurchases": 0 }, { "Id": 770, "Name": "Ofer", "NumOfPurchases": 2 }, { "Id": 803, "Name": "Alon", "NumOfPurchases": 3 },
+        { "Id": 837, "Name": "Shir", "NumOfPurchases": 1 }, { "Id": 912, "Name": "Haim", "NumOfPurchases": 2 }, { "Id": 916, "Name": "Meirav", "NumOfPurchases": 0 }]
+
+        function loadStudents() {
+            document.getElementById("students").innerHTML = "";
+            let str = "";
+            for (var i = 0; i < students.length; i++) {
+                str += "<p>" + studs[i].Name + "," + studs[i].NumOfPurchases + "</p>"
+            }
+            document.getElementById("students").innerHTML = str;
+        }
+    </script>
+    <script href="../Scripts/jquery-3.4.1.min.map"></script>
+</head>
+<body>
+    <div id="students"></div>
+    <input id="btnLoad" type="button" onclick="loadStudents()" button />
+
+</body>
+</html>

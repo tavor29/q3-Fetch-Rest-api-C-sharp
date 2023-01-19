@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--
+        URL TO HTML PAGE!!
+        https://localhost:44335/Client/index.html
+        
+        Local Host port number may vary!!
+    -->
+    <style>
+
+        /* body{
+
+            background: rgb(153,254,255);
+            background: linear-gradient(90deg, rgba(153,254,255,0.5690651260504201) 34%, rgba(142,161,164,1) 65%, rgba(116,5,34,0.8883928571428571) 87%);
+        } */
+        #data-table {
+            position: relative;
+            width: 80%;
+            border-collapse: collapse;
+            top: 60px;
+        }
+
+            #data-table th, #data-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            #data-table th {
+                background-color: #f2f2f2;
+            }
+
+        .form-select {
+            width: 150px;
+            margin: 4px;
+        }
+
+        .container {
+            float: left;
+            width: 100%;
+        }
+
+        .return {
+            right: 50px;
+            top: 130px;
+            position: relative;
+            width: auto;
+        }
+
+            .return input, .return button {
+                display: block;
+            }
+    </style>
+</head>
+<body onload="GetTable(2)">
+    <div class="container">
+        <h4 class="lbl" style="padding: 2px">Filter Return Status:</h4>
+        <select class="form-select" id="form">
+            <option value="2">All</option>
+            <option value="1">Returned</option>
+            <option value="0">Not returned</option>
+
+        </select>
+        <button type="button" class="filter btn btn-primary" id="buttonf" style="margin: 4px">Filter</button>
+        <table id="data-table" class="table-resposive-md"></table>
+    </div>
+
+    <div class="return">
+        <h3> Return book</h3>
+        <input type="text" name="BookId" id="Book" placeholder="BookId"><br><br>
+        <input type="text" name="StudentId" id="Student" placeholder="StudentId"><br><br>
+        <button type="button" class="filter btn btn-primary" id="returnbtn" style="margin: 4px">Submit</button><br><br>
+        <p id="message"></p>
+
+    </div>
+
+    <script>
+        const url = 'https://localhost:44309/api/borrow/table/';
+        const table = document.getElementById("data-table");
+        var filter = 2;
+
+        document.getElementById("buttonf").addEventListener("click", function Filter() {
+            var v = document.getElementById("form").value;
+            if (v == '1')
+                filter = 1;
+
+            else if (v == '2')
+                filter = 2;
+
+            else
+                filter = 0;
+
+            GetTable(filter)
+
+
+        });
+        document.getElementById("returnbtn").addEventListener("click", function Filter() {
+            var book = document.getElementById("Book").value;
+            var id = document.getElementById("Student").value;
+            if (book != null && id >= 0) {
+                ReturnBook(book, id);
+            }
+            else {
+                console.log("error god damnit")
+            }
+
+
+        });
+        function GetTable(filter) {
+
+            fetch(url + filter, {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Accept': 'application/json; charset=UTF-8',
+                })
+
+            })
+                .then(response => response.json())
+                .then(data => {
+                    let tableHTML = "<thead><tr><th>StudentId</th><th>Name</th><th>Surname</th><th>BookId</th><th>Book Name</th><th>Returned</th></tr></thead><tbody>";
+                    data.forEach(item => {
+                        tableHTML += `<tr>
+                  <td>${item.StudentId}</td>
+                  <td>${item.StudentName}</td>
+                  <td>${item.StudentSurname}</td>
+                  <td>${item.BookId}</td>
+                  <td>${item.BookName}</td>
+                  <td>${item.Returned}</td>
+                  </tr>`;
+                    });
+                    tableHTML += "</tbody>"
+                    table.innerHTML = tableHTML;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function ReturnBook(book, id) {
+            url2 = 'https://localhost:44309/api/borrow/return'
+
+            fetch(url2, {
+                method: 'PUT',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Accept': 'application/json; charset=UTF-8',
+                }),
+                body: JSON.stringify({ BookId: book, StudentId: id }), //converts this to JSON
+            })
+                .then(
+                    (result) => {
+                        message = document.getElementById("message");
+                        console.log(result);
+                        if (result.ok) {
+                            message.innerHTML = "Return Updated Seccussfully!"
+                        }
+                        else
+                            message.innerHTML = "Borrow not found - error 404"
+
+                    })
+
+                .catch(error => console.log(error));
+        }
+
+    </script>
+</body>
+</html>
